@@ -1,3 +1,14 @@
+import streamlit as st
+import sys
+
+class WebPrint:
+    def write(self, text):
+        if text.strip():
+            st.text(text)
+    def flush(self):
+        pass
+
+sys.stdout = WebPrint() 
 import math
 from collections import Counter, defaultdict
 from functools import lru_cache
