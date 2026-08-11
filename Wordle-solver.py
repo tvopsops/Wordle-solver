@@ -624,7 +624,7 @@ if __name__ == "__main__":
                 st.rerun()
 
    
-    if st.button("Reset Presentation Demo"):
+    if st.button("Reset Wordle Solver"):
         st.session_state.clue_history = []
         st.rerun()
 
