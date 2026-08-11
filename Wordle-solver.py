@@ -606,9 +606,9 @@ def main():
     print("\nThanks for playing!")
 
 if __name__ == "__main__":
-    if __name__ == "__main__":
+    
     try:
-        # Run mu completely unmodified main() function!
+    
         main()
         st.success("🎉 Wordle solved successfully!")
     except InterruptedError:
