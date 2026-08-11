@@ -1,12 +1,33 @@
 import streamlit as st
 import sys
+import builtins
+
+if "clue_history" not in st.session_state:
+    st.session_state.clue_history = []
 
 class WebPrint:
     def write(self, text):
         if text.strip():
             st.text(text)
-    def flush(self):
-        pass
+    def flush(self): pass
+sys.stdout = WebPrint()
+
+
+st.session_state.input_pointer = 0
+
+def professional_web_input(prompt=""):
+    history = st.session_state.clue_history
+    ptr = st.session_state.input_pointer
+    
+    if ptr < len(history):
+        st.session_state.input_pointer += 1
+        return history[ptr]
+    else:
+        # Pause the loop safely because we need a new web click
+        raise InterruptedError()
+
+builtins.input = professional_web_input
+
 
 sys.stdout = WebPrint() 
 import math
@@ -585,4 +606,26 @@ def main():
     print("\nThanks for playing!")
 
 if __name__ == "__main__":
-    main()
+    if __name__ == "__main__":
+    try:
+        # Run mu completely unmodified main() function!
+        main()
+        st.success("🎉 Wordle solved successfully!")
+    except InterruptedError:
+        
+        current_round = len(st.session_state.clue_history) + 1
+        
+        st.write("---")
+        user_clue = st.text_input(f"Enter 5-digit feedback clues for Attempt {current_round}:", key=f"round_{current_round}")
+        
+        if st.button("Submit Feedback & Calculate"):
+            if user_clue:
+                st.session_state.clue_history.append(user_clue)
+                st.rerun()
+
+   
+    if st.button("Reset Presentation Demo"):
+        st.session_state.clue_history = []
+        st.rerun()
+
+    
